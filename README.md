@@ -1,5 +1,6 @@
-# Speech-Emotion-Recognition
 # Speech Emotion Recognition using 1D-CNN
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22067967.svg)](https://doi.org/10.5281/zenodo.22067967)
 
 A deep learning project for classifying human speech into eight emotional categories using **Mel-Frequency Cepstral Coefficients (MFCCs)** and a **1D Convolutional Neural Network (1D-CNN)**.
 
@@ -8,6 +9,8 @@ The project uses the **RAVDESS (Ryerson Audio-Visual Database of Emotional Speec
 **Project Status:** Completed / Portfolio Project
 **Language:** Python
 **Framework:** TensorFlow / Keras
+**Version:** 1.0
+**DOI:** 10.5281/zenodo.22067967
 
 ---
 
@@ -39,15 +42,15 @@ The system processes audio using **40 MFCC features**, trains a two-layer 1D-CNN
 The model classifies speech into eight categories:
 
 | Label | Emotion   |
-| ----- | --------- |
-| 01    | Neutral   |
-| 02    | Calm      |
-| 03    | Happy     |
-| 04    | Sad       |
-| 05    | Angry     |
-| 06    | Fearful   |
-| 07    | Disgust   |
-| 08    | Surprised |
+| :---: | --------- |
+|   01  | Neutral   |
+|   02  | Calm      |
+|   03  | Happy     |
+|   04  | Sad       |
+|   05  | Angry     |
+|   06  | Fearful   |
+|   07  | Disgust   |
+|   08  | Surprised |
 
 These labels follow the RAVDESS filename convention used by the preprocessing pipeline.
 
@@ -59,11 +62,11 @@ This project uses the **RAVDESS dataset**:
 
 > Livingstone, S. R., & Russo, F. A. (2018). The Ryerson Audio-Visual Database of Emotional Speech and Song (RAVDESS).
 
-RAVDESS contains emotional speech recordings performed by professional actors and provides eight emotion categories used in this project.
+RAVDESS contains emotional speech recordings performed by professional actors and provides the eight emotion categories used in this project.
 
 ### Dataset Download
 
-The dataset is **not included in this repository** because of its size and dataset distribution considerations.
+The dataset is **not included in this repository**.
 
 Download RAVDESS from its official source:
 
@@ -114,17 +117,19 @@ Emotion Classification
 Evaluation & Visualization
 ```
 
-### 1. Audio preprocessing
+### 1. Audio Preprocessing
 
-Audio files are loaded using `librosa` at a sampling rate of **22,050 Hz**. The current implementation processes up to three seconds of audio with a 0.5-second offset.
+Audio files are loaded using `librosa` at a sampling rate of **22,050 Hz**.
 
-### 2. MFCC extraction
+The current implementation processes up to three seconds of audio with a 0.5-second offset.
+
+### 2. MFCC Extraction
 
 The system extracts **40 Mel-Frequency Cepstral Coefficients (MFCCs)** from each audio file.
 
 The MFCC representation is then averaged across the time dimension to produce a 40-feature representation for each audio sample.
 
-### 3. 1D-CNN architecture
+### 3. 1D-CNN Architecture
 
 The model consists of two convolutional layers:
 
@@ -173,10 +178,17 @@ The implementation uses TensorFlow/Keras and trains with the Adam optimizer and 
 The model is trained for **50 epochs** with a batch size of **32**.
 
 The current implementation uses an 80/20 train-test split with `random_state=42`.
+
 After training, the model is saved as:
 
 ```text
 emotion_model.keras
+```
+
+The encoded class labels are saved as:
+
+```text
+classes.npy
 ```
 
 ---
@@ -187,7 +199,7 @@ The project documentation reports a test accuracy of:
 
 ### **93.40%**
 
-The original project also compares the fine-tuned model with an earlier baseline using 13 MFCC features and a shallower CNN architecture.
+The project also compares the proposed model with an earlier baseline using 13 MFCC features and a shallower CNN architecture.
 
 | Model    | MFCC Features | Architecture     | Reported Accuracy |
 | -------- | ------------: | ---------------- | ----------------: |
@@ -212,7 +224,7 @@ The project includes a dedicated evaluation script that calculates:
 
 The evaluation script uses `classification_report` from scikit-learn and generates a confusion matrix showing where the model succeeds and where different emotions are confused.
 
-### Example evaluation output
+### Example Evaluation Output
 
 ```text
 Final Model Accuracy: 93.40%
@@ -248,13 +260,16 @@ Feature averaging
 Predicted Emotion
 ```
 
-## The prediction script also compares the predicted emotion with the emotion encoded in the RAVDESS filename.
+The prediction script also compares the predicted emotion with the emotion encoded in the RAVDESS filename.
+
+---
 
 ## Explainable AI / CNN Visualization
 
 To investigate what the CNN learns from the MFCC representation, the project includes an activation visualization script.
 
 The script creates an intermediate Keras model that outputs the activation of the first convolutional layer and visualizes the resulting activation map as a heatmap.
+
 This provides a visual representation of the patterns detected by the convolutional filters.
 
 > This visualization should be considered a feature-activation analysis rather than a complete explanation of the model's final decision.
@@ -322,7 +337,7 @@ Python 3.9+ is recommended.
 
 ## Usage
 
-### Step 1 — Download the dataset
+### Step 1 — Download the Dataset
 
 Download the RAVDESS dataset and place the audio files inside:
 
@@ -330,7 +345,7 @@ Download the RAVDESS dataset and place the audio files inside:
 ./data/
 ```
 
-### Step 2 — Process the audio
+### Step 2 — Process the Audio
 
 Run:
 
@@ -345,7 +360,7 @@ X_data.npy
 y_data.npy
 ```
 
-### Step 3 — Train the model
+### Step 3 — Train the Model
 
 Run:
 
@@ -359,13 +374,13 @@ The trained model will be saved as:
 emotion_model.keras
 ```
 
-The class labels are also saved as:
+The class labels will be saved as:
 
 ```text
 classes.npy
 ```
 
-### Step 4 — Make a prediction
+### Step 4 — Make a Prediction
 
 Run:
 
@@ -375,7 +390,7 @@ python 3_predict.py
 
 The script selects an audio file from the dataset and displays the actual and predicted emotion.
 
-### Step 5 — Evaluate the model
+### Step 5 — Evaluate the Model
 
 Run:
 
@@ -385,7 +400,7 @@ python 4_evaluate_accuracy.py
 
 This produces the model accuracy, classification report, and confusion matrix.
 
-### Step 6 — Visualize CNN activations
+### Step 6 — Visualize CNN Activations
 
 Run:
 
@@ -442,6 +457,19 @@ Potential improvements include:
 
 ---
 
+## Citation
+
+If you use this project, you can cite the Zenodo record:
+
+```text
+Shahid, R. (2026). Speech Emotion Recognition using 1D-CNN.
+Zenodo. https://doi.org/10.5281/zenodo.22067967
+```
+
+**DOI:** https://doi.org/10.5281/zenodo.22067967
+
+---
+
 ## References
 
 The research background, methodology, and related work are documented in the project's accompanying technical report.
@@ -458,9 +486,7 @@ Key references include work on:
 
 ## Author
 
-**Rayan Shahid**
-
-Computer Science
+**Rehan Shahid**
 
 GitHub:
 https://github.com/Rayan-Shahid
@@ -476,4 +502,3 @@ This project is licensed under the **MIT License**. See the `LICENSE` file for d
 ## Disclaimer
 
 This project is intended for educational and research purposes. Emotion classification from speech should not be treated as a definitive assessment of a person's psychological or mental state.
-
