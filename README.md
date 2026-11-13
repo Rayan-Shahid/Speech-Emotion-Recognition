@@ -6,7 +6,7 @@ A deep learning project for classifying human speech into eight emotional catego
 
 The project uses the **RAVDESS (Ryerson Audio-Visual Database of Emotional Speech and Song)** dataset and includes audio preprocessing, MFCC feature extraction, model training, emotion prediction, evaluation, and CNN activation visualization.
 
-**Project Status:** Completed / Portfolio Project
+
 **Language:** Python
 **Framework:** TensorFlow / Keras
 **Version:** 1.0
